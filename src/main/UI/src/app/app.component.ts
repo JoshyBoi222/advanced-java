@@ -29,6 +29,7 @@ export class AppComponent implements OnInit{
   currentCheckOutVal!:string;
 
   public messages: string[] = [];
+  timeZones: any = {};
 
     ngOnInit(){
       this.roomsearch= new FormGroup({
@@ -50,6 +51,11 @@ export class AppComponent implements OnInit{
     this.getMessages().subscribe((data: string[]) => {
       this.messages = data;
       });
+
+    this.getTimeZones().subscribe((data: any) => {
+      this.timeZones = data;
+    });
+
   }
 
     onSubmit({value,valid}:{value:Roomsearch,valid:boolean}){
@@ -90,8 +96,13 @@ export class AppComponent implements OnInit{
     }
 
     getMessages(): Observable<string[]> {
-      return this.httpClient.get<string[]>(`${this.baseURL}/messages`);
+      return this.httpClient.get<string[]>(`http://localhost:8080/messages`);
     }
+
+    getTimeZones(): Observable<any> {
+      return this.httpClient.get<any>('http://localhost:8080/timeZones')
+    }
+
   }
 
 

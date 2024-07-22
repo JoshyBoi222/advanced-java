@@ -28,6 +28,13 @@
         </div>
       </div>
 
+      <div *ngIf="timeZones">
+        <h3>Join Us for a Live Presentation Today at:</h3>
+        <p>{{timeZones.easternTime}}</p>
+        <p>{{timeZones.mountainTime}}</p>
+        <p>{{timeZones.utcTime}}</p>
+      </div>
+
 
 
 
