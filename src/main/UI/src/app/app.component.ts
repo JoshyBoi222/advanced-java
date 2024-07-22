@@ -28,6 +28,8 @@ export class AppComponent implements OnInit{
   currentCheckInVal!:string;
   currentCheckOutVal!:string;
 
+  public messages: string[] = [];
+
     ngOnInit(){
       this.roomsearch= new FormGroup({
         checkin: new FormControl(' '),
@@ -44,6 +46,10 @@ export class AppComponent implements OnInit{
       this.currentCheckInVal = x.checkin;
       this.currentCheckOutVal = x.checkout;
     });
+
+    this.getMessages().subscribe((data: string[]) => {
+      this.messages = data;
+      });
   }
 
     onSubmit({value,valid}:{value:Roomsearch,valid:boolean}){
@@ -83,6 +89,9 @@ export class AppComponent implements OnInit{
        return this.httpClient.get(this.baseURL + '/room/reservation/v1?checkin='+ this.currentCheckInVal + '&checkout='+this.currentCheckOutVal, {responseType: 'json'});
     }
 
+    getMessages(): Observable<string[]> {
+      return this.httpClient.get<string[]>(`${this.baseURL}/messages`);
+    }
   }
 
 
